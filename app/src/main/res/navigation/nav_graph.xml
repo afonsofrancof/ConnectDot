@@ -16,4 +16,8 @@
         android:id="@+id/profileFragment"
         android:name="com.afonsofrancof.connectdot.fragments.ProfileFragment"
         android:label="ProfileFragment" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.afonsofrancof.connectdot.fragments.SettingsFragment"
+        android:label="SettingsFragment" />
 </navigation>

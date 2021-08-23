@@ -4,4 +4,5 @@
     <string name="messaging">Messaging</string>
     <string name="profile">Profile</string>
     <string name="feed">Feed</string>
+    <string name="settings">Settings</string>
 </resources>
