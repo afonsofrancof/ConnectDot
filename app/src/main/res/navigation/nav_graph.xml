@@ -7,7 +7,11 @@
     <fragment
         android:id="@+id/feedFragment"
         android:name="com.afonsofrancof.connectdot.fragments.FeedFragment"
-        android:label="FeedFragment" />
+        android:label="FeedFragment" >
+        <action
+            android:id="@+id/action_feedFragment_to_postCreateFragment"
+            app:destination="@id/postCreateFragment" />
+    </fragment>
     <fragment
         android:id="@+id/messagingFragment"
         android:name="com.afonsofrancof.connectdot.fragments.MessagingFragment"
@@ -20,4 +24,8 @@
         android:id="@+id/settingsFragment"
         android:name="com.afonsofrancof.connectdot.fragments.SettingsFragment"
         android:label="SettingsFragment" />
+    <fragment
+        android:id="@+id/postCreateFragment"
+        android:name="com.afonsofrancof.connectdot.fragments.PostCreateFragment"
+        android:label="PostCreateFragment" />
 </navigation>
