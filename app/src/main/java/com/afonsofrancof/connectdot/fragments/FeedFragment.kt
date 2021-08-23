@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
+import com.afonsofrancof.connectdot.MainActivity
 import com.afonsofrancof.connectdot.R
 import com.afonsofrancof.connectdot.databinding.FragmentFeedBinding
 
@@ -19,7 +20,7 @@ class FeedFragment: Fragment() {
     ): View {
         val binding = FragmentFeedBinding.inflate(inflater)
 
-
+        binding.postAddButton.setOnClickListener { (activity as MainActivity).newPost() }
 
         return binding.root
     }

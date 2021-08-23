@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.afonsofrancof.connectdot.databinding.ActivityLoginBinding
+import com.afonsofrancof.connectdot.utils.getUser
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
@@ -24,6 +25,11 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding =
             DataBindingUtil.setContentView<ActivityLoginBinding>(this, R.layout.activity_login)
+
+        if(getUser()!=null){
+            startActivity(Intent(this,MainActivity::class.java))
+            finish()
+        }
 
         binding.loginButton.setOnClickListener { signIn()}
 
