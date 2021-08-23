@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Connect Dot</string>
     <string name="login">Login</string>
+    <string name="messaging">Messaging</string>
+    <string name="profile">Profile</string>
+    <string name="feed">Feed</string>
 </resources>
