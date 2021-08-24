@@ -7,4 +7,6 @@
     <string name="settings">Settings</string>
     <string name="add_image">Add Image</string>
     <string name="publish">Publish</string>
+    <string name="like">Like</string>
+    <string name="repost">Repost</string>
 </resources>
