@@ -44,4 +44,8 @@ class MainActivity : AppCompatActivity(){
     fun newPost(){
         navController.navigate(R.id.postCreateFragment)
     }
+
+    fun goBack(){
+        navController.popBackStack()
+    }
 }
