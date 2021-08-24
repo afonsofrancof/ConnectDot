@@ -12,7 +12,8 @@ data class Post(
     var imgUrl: String? = null,
     val likes: Int = 0,
     val repost: Boolean = false,
-    val reposts: Int = 0
+    val reposts: Int = 0,
+    val originalPost : String? = null
 )
 
 data class Author(
