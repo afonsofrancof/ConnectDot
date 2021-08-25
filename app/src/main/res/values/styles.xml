@@ -2,13 +2,13 @@
 <resources>
 
     <style name="LoginTheme">
-        <item name="android:windowBackground">@color/background_color</item>
+        <item name="android:windowBackground">@color/white</item>
         <item name="windowNoTitle">true</item>
     </style>
 
     <style name="rounded_image" parent="">
         <item name="strokeWidth">20dp</item>
-        <item name="backgroundColor">#FFFFFF</item>
+        <item name="backgroundColor">@color/dark_teal</item>
         <item name="cornerSize">50%</item>
         <item name="android:background">@color/white</item>
         <item name="cornerFamily">rounded</item>

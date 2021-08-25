@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.ConnectDot" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
 
-        <item name="android:windowBackground">@color/background_color</item>
+        <item name="android:windowBackground">#AA75C3C8</item>
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/dark_blue</item>
 

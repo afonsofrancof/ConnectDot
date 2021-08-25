@@ -1,7 +1,6 @@
 package com.afonsofrancof.connectdot
 
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -26,16 +25,16 @@ class LoginActivity : AppCompatActivity() {
         val binding =
             DataBindingUtil.setContentView<ActivityLoginBinding>(this, R.layout.activity_login)
 
-        if(getUser()!=null){
-            startActivity(Intent(this,MainActivity::class.java))
+        if (getUser() != null) {
+            startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
 
-        binding.loginButton.setOnClickListener { signIn()}
+        binding.loginButton.setOnClickListener { signIn() }
 
     }
 
-    private fun signIn(){
+    private fun signIn() {
         val providers = arrayListOf(
             AuthUI.IdpConfig.EmailBuilder().build(),
             AuthUI.IdpConfig.GoogleBuilder().build())
@@ -55,7 +54,7 @@ class LoginActivity : AppCompatActivity() {
         if (result.resultCode == RESULT_OK) {
             // Successfully signed in
             val user = FirebaseAuth.getInstance().currentUser
-            startActivity(Intent(this,MainActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
             finish()
         } else {
             // Sign in failed. If response is null the user canceled the
