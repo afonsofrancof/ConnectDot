@@ -11,5 +11,10 @@ class DividerItemDecoration(private val spacing: Int) : RecyclerView.ItemDecorat
         outRect.left = spacing
         outRect.right = spacing
         outRect.top = spacing
+        if(itemPosition+1== parent.adapter?.itemCount ?: 0){
+            outRect.bottom = 240
+        }else{
+            outRect.bottom = 0
+        }
     }
 }
