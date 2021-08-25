@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
@@ -29,6 +30,9 @@ class MainActivity : AppCompatActivity(){
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
             binding.bottomNavigation.isVisible = destination.id!=R.id.postCreateFragment
         }
+
+
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
