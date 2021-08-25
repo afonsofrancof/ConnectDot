@@ -9,4 +9,7 @@
     <string name="publish">Publish</string>
     <string name="like">Like</string>
     <string name="repost">Repost</string>
+    <string name="likes_label">likes</string>
+    <string name="like_label">like</string>
+    <string name="reposted">Reposted</string>
 </resources>

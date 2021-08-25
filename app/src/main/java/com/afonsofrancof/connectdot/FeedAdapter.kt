@@ -6,10 +6,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.afonsofrancof.connectdot.databinding.FeedPostBinding
+import com.afonsofrancof.connectdot.objects.User
 import com.afonsofrancof.connectdot.objects.Post
 
 
-class FeedAdapter(private val onClickListener: (Post) -> Unit) : ListAdapter<Post, FeedAdapter.FeedItemViewHolder>(DiffCallback){
+class FeedAdapter(private val onClickListener: OnClickListener) : ListAdapter<Post, FeedAdapter.FeedItemViewHolder>(DiffCallback){
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -20,7 +21,22 @@ class FeedAdapter(private val onClickListener: (Post) -> Unit) : ListAdapter<Pos
     override fun onBindViewHolder(holder: FeedItemViewHolder, position: Int) {
         val post = getItem(position)
         holder.binding.postImage.setOnClickListener {
-            onClickListener(post)
+            onClickListener.onClickImage(post)
+        }
+        holder.binding.likeButton.setOnClickListener {
+            onClickListener.onClickLike(post)
+        }
+        holder.binding.repostButton.setOnClickListener {
+            onClickListener.onClickRepost(post)
+        }
+        holder.binding.profilePicture.setOnClickListener {
+            onClickListener.onClickUser(post.author)
+        }
+        holder.binding.username.setOnClickListener {
+            onClickListener.onClickUser(post.author)
+        }
+        holder.binding.deletePostButton.setOnClickListener {
+            onClickListener.onClickDelete(post)
         }
         holder.bind(post)
     }
@@ -31,7 +47,7 @@ class FeedAdapter(private val onClickListener: (Post) -> Unit) : ListAdapter<Pos
         }
 
         override fun areContentsTheSame(oldItem: Post, newItem: Post): Boolean {
-            return oldItem.postId == newItem.postId
+            return oldItem.postId == newItem.postId && oldItem.likedBy.count() == newItem.likedBy.count()
         }
 
     }
@@ -43,5 +59,12 @@ class FeedAdapter(private val onClickListener: (Post) -> Unit) : ListAdapter<Pos
         }
     }
 
+    interface OnClickListener{
+        fun onClickLike(post: Post)
+        fun onClickRepost(post: Post)
+        fun onClickUser(author: User)
+        fun onClickImage(post:Post)
+        fun onClickDelete(post:Post)
+    }
 
 }

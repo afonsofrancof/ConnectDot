@@ -58,7 +58,7 @@ class PostCreateViewModel : ViewModel() {
         postId: String
     ) {
         val post = Post()
-        post.author.authorId = userid
+        post.author.userId = userid
         post.author.name = username
         post.author.pfpUrl = pfpUrl
         post.imgUrl = postImgUrl

@@ -4,18 +4,19 @@ import java.util.*
 
 data class Post(
     var text: String? = null,
-    var type: Int = 0,
     val date: Date = Date(),
     val edited: Boolean = false,
-    val author : Author = Author(),
+    var author : User = User(),
     var postId: String = "",
     var imgUrl: String? = null,
-    val likes: Int = 0,
-    val repost: Boolean = false,
-    val reposts: Int = 0,
-    val originalPost : String? = null
+    var likes: Int = 0,
+    var repost: Boolean = false,
+    var reposts: Int = 0,
+    val repostedBy : MutableList<User> = mutableListOf(),
+    var originalPost : String? = null,
+    val likedBy : MutableList<User> = mutableListOf()
 )
 
-data class Author(
-    var name: String? = null, var authorId: String = "", var pfpUrl: String? = null
+data class User(
+    var name: String? = null, var userId: String = "", var pfpUrl: String? = null
 )
