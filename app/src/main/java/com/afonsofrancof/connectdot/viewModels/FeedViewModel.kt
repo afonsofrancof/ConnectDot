@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.afonsofrancof.connectdot.objects.Post
 import com.afonsofrancof.connectdot.objects.User
+import com.afonsofrancof.connectdot.utils.getUser
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -23,7 +24,7 @@ class FeedViewModel : ViewModel() {
     fun getPosts() {
 
         val myRef = database.reference.child("posts")
-
+        //.orderByChild("author/userId").equalTo("JSvYATX911YEzNhNKDG7zltyHLf2")
 
         val postListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -40,7 +41,8 @@ class FeedViewModel : ViewModel() {
         myRef.addValueEventListener(postListener)
     }
 
-    fun addOrRemoveLike(post: Post, user: User): Int {
+    fun addOrRemoveLike(post: Post): Int {
+        val user = getUser()
         if (post.likedBy.any { it.userId == user.userId }) {
             post.likedBy.removeAll { it.userId == user.userId }
             post.likes--
@@ -54,8 +56,8 @@ class FeedViewModel : ViewModel() {
         return post.likes
     }
 
-    fun repost(post: Post, user: User) {
-
+    fun repost(post: Post) {
+        val user = getUser()
         val repostPost = Post()
         post.reposts++
         post.repostedBy.add(user)
@@ -70,7 +72,8 @@ class FeedViewModel : ViewModel() {
 
     }
 
-    fun removePost(post: Post, user: User) {
+    fun removePost(post: Post) {
+        val user = getUser()
         if (user.userId == post.author.userId) {
             post.originalPost?.let {
                 val originalPost: Post? =

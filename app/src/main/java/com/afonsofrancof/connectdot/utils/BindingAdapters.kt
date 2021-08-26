@@ -38,24 +38,24 @@ fun TextView.likeLabel(likedBy: MutableList<User>) {
 
 @BindingAdapter("likedState")
 fun ImageButton.likedState(likedBy: MutableList<User>) {
-    this.isSelected = likedBy.any { it.userId == this.context.getUser()?.uid ?: "" }
+    this.isSelected = likedBy.any { it.userId == this.context.getFirebaseUser()?.uid ?: "" }
 }
 
 @BindingAdapter("repostsLabel")
 fun TextView.reposts(post : Post) {
-    this.isVisible = post.author.userId != this.context.getUser()?.uid ?: ""
+    this.isVisible = post.author.userId != this.context.getFirebaseUser()?.uid ?: ""
     this.text = post.repostedBy.size.toString()
 }
 
 @BindingAdapter("repostsState")
 fun ImageButton.repostsState(post : Post) {
-    if (post.repostedBy.any { it.userId == this.context.getUser()?.uid ?: "" }){
+    if (post.repostedBy.any { it.userId == this.context.getFirebaseUser()?.uid ?: "" }){
         this.setImageResource(R.drawable.repost_icon_reposted)
     }else{
         this.setImageResource(R.drawable.repost_icon_not_reposted)
     }
-    this.isVisible = post.author.userId != this.context.getUser()?.uid ?: ""
-    this.isEnabled = post.repostedBy.find{ it.userId == this.context.getUser()?.uid ?: ""}==null
+    this.isVisible = post.author.userId != this.context.getFirebaseUser()?.uid ?: ""
+    this.isEnabled = post.repostedBy.find{ it.userId == this.context.getFirebaseUser()?.uid ?: ""}==null
 }
 
 @BindingAdapter("isRepost")
@@ -65,5 +65,5 @@ fun TextView.isRepost(repost : Boolean){
 
 @BindingAdapter("deleteButton")
 fun ImageButton.deleteButton(userId : String){
-    this.isVisible = userId == this.context.getUser()?.uid ?:""
+    this.isVisible = userId == this.context.getFirebaseUser()?.uid ?:""
 }

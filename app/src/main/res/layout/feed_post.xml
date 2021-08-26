@@ -101,9 +101,6 @@
                 android:textSize="20sp"
                 tools:text="@tools:sample/lorem[25]" />
 
-
-
-
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

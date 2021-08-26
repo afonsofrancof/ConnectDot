@@ -11,18 +11,16 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.afonsofrancof.connectdot.DividerItemDecoration
 import com.afonsofrancof.connectdot.FeedAdapter
-import com.afonsofrancof.connectdot.MainActivity
-import com.afonsofrancof.connectdot.databinding.FragmentFeedBinding
 import com.afonsofrancof.connectdot.databinding.FragmentProfileBinding
 import com.afonsofrancof.connectdot.objects.Post
 import com.afonsofrancof.connectdot.objects.User
 import com.afonsofrancof.connectdot.utils.getUser
-import com.afonsofrancof.connectdot.viewModels.FeedViewModel
+import com.afonsofrancof.connectdot.viewModels.ProfileViewModel
 
 class ProfileFragment: Fragment(),FeedAdapter.OnClickListener {
 
-    private val viewModel: FeedViewModel by lazy {
-        ViewModelProvider(this).get(FeedViewModel::class.java)
+    private val viewModel: ProfileViewModel by lazy {
+        ViewModelProvider(this).get(ProfileViewModel::class.java)
     }
 
     lateinit var binding: FragmentProfileBinding
@@ -38,7 +36,8 @@ class ProfileFragment: Fragment(),FeedAdapter.OnClickListener {
         binding.feed.addItemDecoration(DividerItemDecoration(30))
         binding.feed.adapter = adapter
         binding.feed.itemAnimator = FeedFragment.Animator()
-        viewModel.getPosts()
+
+        viewModel.getPosts(getUser().userId)
 
         viewModel.postList.observe(viewLifecycleOwner, Observer {
             //Falta FILTRAR POR ESTE USER SO
