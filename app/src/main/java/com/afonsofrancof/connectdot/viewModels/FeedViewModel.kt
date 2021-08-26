@@ -21,10 +21,12 @@ class FeedViewModel : ViewModel() {
     private val database =
         Firebase.database("https://connectdot-a66d2-default-rtdb.europe-west1.firebasedatabase.app")
 
-    fun getPosts() {
+    fun getPosts(filterByUser : Boolean) {
 
-        val myRef = database.reference.child("posts")
-        //.orderByChild("author/userId").equalTo("JSvYATX911YEzNhNKDG7zltyHLf2")
+        val myRef = when(filterByUser){
+            true -> database.reference.child("posts").orderByChild("author/userId").equalTo(getUser().userId)
+            false -> database.reference.child("posts")
+        }
 
         val postListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {

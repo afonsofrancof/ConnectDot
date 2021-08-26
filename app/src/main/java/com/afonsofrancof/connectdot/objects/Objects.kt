@@ -20,3 +20,18 @@ data class Post(
 data class User(
     var name: String? = null, var userId: String = "", var pfpUrl: String? = null
 )
+
+data class Message(
+    val messageId : String,
+    var userId : String,
+    var text: String? = null,
+    var photoUrl : String? = null,
+    var timeStamp : Date = Date()
+)
+
+data class Chat(
+    val chatId : String,
+    var userList : MutableList<User>,
+    var messages : MutableList<Message> = mutableListOf(),
+
+)

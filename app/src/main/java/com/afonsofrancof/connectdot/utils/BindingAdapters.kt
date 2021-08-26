@@ -10,12 +10,18 @@ import com.afonsofrancof.connectdot.R
 import com.afonsofrancof.connectdot.objects.Post
 import com.afonsofrancof.connectdot.objects.User
 import com.bumptech.glide.Glide
+import com.google.android.material.imageview.ShapeableImageView
 import java.util.*
 
 @BindingAdapter("setImage")
 fun ImageView.setImage(url: String?) {
     this.isVisible = url != null
-    Glide.with(this).load(url).into(this)
+    Glide.with(this).load(url).placeholder(R.drawable.ic__image_placeholder).error(R.drawable.ic_error_image) .into(this)
+}
+
+@BindingAdapter("setProfilePicture")
+fun ImageView.setProfilePicture(url : String?){
+    Glide.with(this).load(url).placeholder(R.drawable.ic_avatar_placeholder).error(R.drawable.ic_avatar_placeholder).into(this)
 }
 
 @BindingAdapter("timeAgo")

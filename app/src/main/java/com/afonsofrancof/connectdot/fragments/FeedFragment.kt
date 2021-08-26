@@ -1,13 +1,17 @@
 package com.afonsofrancof.connectdot.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavArgs
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +23,9 @@ import com.afonsofrancof.connectdot.objects.Post
 import com.afonsofrancof.connectdot.objects.User
 import com.afonsofrancof.connectdot.utils.getUser
 import com.afonsofrancof.connectdot.viewModels.FeedViewModel
+import com.google.android.material.internal.NavigationMenu
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.ktx.Firebase
 
 class FeedFragment : Fragment(), FeedAdapter.OnClickListener {
 
@@ -27,6 +34,8 @@ class FeedFragment : Fragment(), FeedAdapter.OnClickListener {
     }
 
     lateinit var binding: FragmentFeedBinding
+
+    val args by navArgs<FeedFragmentArgs>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,20 +49,19 @@ class FeedFragment : Fragment(), FeedAdapter.OnClickListener {
         binding.feed.addItemDecoration(DividerItemDecoration(30))
         binding.feed.adapter = adapter
         binding.feed.itemAnimator = Animator()
-        viewModel.getPosts()
-
+        viewModel.getPosts(!args.isFeed)
+        binding.user = getUser()
         viewModel.postList.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
-            Log.i(
-                "debug",
-                (binding.feed.layoutManager as GridLayoutManager).findFirstCompletelyVisibleItemPosition()
-                    .toString()
-            )
             if ((binding.feed.layoutManager as GridLayoutManager).findFirstCompletelyVisibleItemPosition() < 2) {
                 binding.feed.smoothScrollToPosition(0)
             }
         })
-
+        binding.logoutButton.setOnClickListener {
+            (activity as MainActivity).signOut()
+        }
+        binding.userHeader.isVisible = !args.isFeed
+        binding.postAddButton.isVisible = args.isFeed
 
 
         return binding.root

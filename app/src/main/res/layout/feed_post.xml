@@ -37,7 +37,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:setImage="@{post.author.pfpUrl}"
+                    app:setProfilePicture="@{post.author.pfpUrl}"
                     app:shapeAppearance="@style/rounded_image"
                     tools:src="@tools:sample/backgrounds/scenic" />
 

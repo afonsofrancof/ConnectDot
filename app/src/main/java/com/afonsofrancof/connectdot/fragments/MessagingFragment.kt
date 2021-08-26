@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.afonsofrancof.connectdot.databinding.FragmentMessagingBinding
-import com.afonsofrancof.connectdot.databinding.FragmentProfileBinding
 
 class MessagingFragment: Fragment() {
     override fun onCreateView(
