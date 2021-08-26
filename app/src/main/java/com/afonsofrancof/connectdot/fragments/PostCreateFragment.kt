@@ -2,25 +2,20 @@ package com.afonsofrancof.connectdot.fragments
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
-import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.afonsofrancof.connectdot.MainActivity
 import com.afonsofrancof.connectdot.R
 import com.afonsofrancof.connectdot.databinding.FragmentPostCreateBinding
-import com.afonsofrancof.connectdot.utils.getUser
+import com.afonsofrancof.connectdot.utils.getFirebaseUser
 import com.afonsofrancof.connectdot.viewModels.PostCreateViewModel
 import com.bumptech.glide.Glide
-import jp.wasabeef.blurry.Blurry
 import pl.aprilapps.easyphotopicker.DefaultCallback
 import pl.aprilapps.easyphotopicker.EasyImage
 import pl.aprilapps.easyphotopicker.MediaFile
@@ -95,7 +90,7 @@ class PostCreateFragment : Fragment() {
             binding.publishButton.setIconResource(R.drawable.empty)
             binding.progressBarPublish.isVisible = true
             binding.publishButton.isEnabled = false
-            requireContext().getUser()?.let { user ->
+            getFirebaseUser()?.let { user ->
                 viewModel.submitPost(
                     user.uid,
                     user.displayName,

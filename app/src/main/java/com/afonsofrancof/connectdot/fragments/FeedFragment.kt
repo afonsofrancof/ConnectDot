@@ -44,7 +44,8 @@ class FeedFragment : Fragment(), FeedAdapter.OnClickListener {
 
         viewModel.postList.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
-            Log.i("debug",
+            Log.i(
+                "debug",
                 (binding.feed.layoutManager as GridLayoutManager).findFirstCompletelyVisibleItemPosition()
                     .toString()
             )
@@ -59,17 +60,14 @@ class FeedFragment : Fragment(), FeedAdapter.OnClickListener {
     }
 
     override fun onClickLike(post: Post) {
-        requireContext().getUser()?.let {
-            val me = User(it.displayName, it.uid, it.photoUrl.toString())
-            viewModel.addOrRemoveLike(post.copy(), me)
-        }
+
+        viewModel.addOrRemoveLike(post.copy())
+
     }
 
     override fun onClickRepost(post: Post) {
-        requireContext().getUser()?.let {
-            val me = User(it.displayName, it.uid, it.photoUrl.toString())
-            viewModel.repost(post.copy(), me)
-        }
+        viewModel.repost(post.copy())
+
     }
 
     override fun onClickUser(author: User) {
@@ -81,10 +79,8 @@ class FeedFragment : Fragment(), FeedAdapter.OnClickListener {
     }
 
     override fun onClickDelete(post: Post) {
-        requireContext().getUser()?.let {
-            val me = User(it.displayName, it.uid, it.photoUrl.toString())
-            viewModel.removePost(post.copy(),me)
-        }
+
+        viewModel.removePost(post.copy())
     }
 
     fun updateLikesLabel(likes: Int) {
