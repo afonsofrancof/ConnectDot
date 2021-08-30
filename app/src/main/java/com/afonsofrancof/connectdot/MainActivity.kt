@@ -1,18 +1,14 @@
 package com.afonsofrancof.connectdot
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.afonsofrancof.connectdot.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -50,6 +46,14 @@ class MainActivity : AppCompatActivity(){
     fun newPost(){
         navController.navigate(R.id.postCreateFragment)
     }
+
+    fun newChat(){
+        navController.navigate(R.id.chatAddListFragment)
+    }
+    
+//    fun goToChat(){
+//        navController.navigate(R.id.chat)
+//    }
 
     fun goBack(){
         navController.popBackStack()

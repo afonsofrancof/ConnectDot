@@ -4,14 +4,21 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import com.afonsofrancof.connectdot.databinding.ActivityLoginBinding
 import com.afonsofrancof.connectdot.utils.getFirebaseUser
+import com.afonsofrancof.connectdot.utils.getUser
+import com.afonsofrancof.connectdot.viewModels.LoginViewModel
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
 import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
+
+    private val viewModel: LoginViewModel by lazy {
+        ViewModelProvider(this).get(LoginViewModel::class.java)
+    }
 
     private lateinit var auth: FirebaseAuth
 
@@ -54,6 +61,7 @@ class LoginActivity : AppCompatActivity() {
         if (result.resultCode == RESULT_OK) {
             // Successfully signed in
             val user = FirebaseAuth.getInstance().currentUser
+            viewModel.addUserToDb(getUser())
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         } else {

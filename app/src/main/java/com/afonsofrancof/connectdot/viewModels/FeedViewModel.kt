@@ -17,7 +17,6 @@ class FeedViewModel : ViewModel() {
 
     var postList = MutableLiveData<List<Post>>()
 
-    val like = MutableLiveData<Post>()
     private val database =
         Firebase.database("https://connectdot-a66d2-default-rtdb.europe-west1.firebasedatabase.app")
 

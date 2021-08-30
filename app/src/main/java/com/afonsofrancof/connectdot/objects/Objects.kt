@@ -1,5 +1,7 @@
 package com.afonsofrancof.connectdot.objects
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import java.util.*
 
 data class Post(
@@ -17,21 +19,22 @@ data class Post(
     val likedBy : MutableList<User> = mutableListOf()
 )
 
-data class User(
+@Parcelize data class User(
     var name: String? = null, var userId: String = "", var pfpUrl: String? = null
-)
+) : Parcelable
 
-data class Message(
-    val messageId : String,
-    var userId : String,
+@Parcelize data class Message(
+    var messageId : String = "",
+    var userId : String = "",
     var text: String? = null,
     var photoUrl : String? = null,
     var timeStamp : Date = Date()
-)
+) : Parcelable
 
-data class Chat(
-    val chatId : String,
-    var userList : MutableList<User>,
+
+@Parcelize data class Chat(
+    var chatId : String = "",
+    var userList : MutableList<User> = mutableListOf(),
     var messages : MutableList<Message> = mutableListOf(),
-
-)
+    var lastMessage : Message? = Message()
+) : Parcelable

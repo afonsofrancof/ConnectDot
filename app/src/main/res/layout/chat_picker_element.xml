@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+
+        <variable
+            name="chat"
+            type="com.afonsofrancof.connectdot.objects.Chat" />
+    </data>
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:setProfilePictureChat="@{chat.userList}"
+            android:id="@+id/contact_photo"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="8dp"
+            tools:src="@tools:sample/avatars"
+            android:scaleType="centerCrop"
+            app:shapeAppearance="@style/rounded_image"
+            />
+
+        <TextView
+            android:id="@+id/contact_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:text="Afonso Franco"
+            app:setUsernameChat="@{chat.userList}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/contact_photo"
+            android:textSize="18sp"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp"
+            />
+        <TextView
+            android:id="@+id/contact_last_message"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:setLastMessageChat="@{chat.lastMessage}"
+            tools:text="this is the last message you had with Afonso Franco"
+            android:ellipsize="end"
+            app:layout_constraintTop_toBottomOf="@id/contact_name"
+            app:layout_constraintStart_toStartOf="@id/contact_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="4dp"
+            android:lines="1"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+</layout>
