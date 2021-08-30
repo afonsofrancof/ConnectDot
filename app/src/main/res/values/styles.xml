@@ -20,6 +20,19 @@
         <item name="cornerSizeTopLeft">50%</item>
         <item name="cornerSizeTopRight">50%</item>
         <item name="cornerSizeBottomRight">-50%</item>
-
     </style>
+
+    <style name="rounded_corners_image" parent="">
+        <item name="strokeWidth">20dp</item>
+        <item name="backgroundColor">@color/dark_teal</item>
+        <item name="cornerSize">3%</item>
+        <item name="android:background">@color/white</item>
+        <item name="cornerFamily">rounded</item>
+    </style>
+
+    <style name="Rounded" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+    </style>
+
 </resources>

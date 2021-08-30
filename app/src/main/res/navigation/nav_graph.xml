@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/feedFragment">
 
@@ -17,9 +18,18 @@
             app:argType="boolean" />
     </fragment>
     <fragment
-        android:id="@+id/messagingFragment"
-        android:name="com.afonsofrancof.connectdot.fragments.MessagingFragment"
-        android:label="MessagingFragment" />
+        android:id="@+id/ChatPickerListFragment"
+        android:name="com.afonsofrancof.connectdot.fragments.ChatPickerListFragment"
+        android:label="ChatPickerListFragment">
+        <argument
+            android:name="user"
+            app:argType="com.afonsofrancof.connectdot.objects.User"
+            android:defaultValue="@null"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_ChatPickerListFragment_to_chatWindowFragment"
+            app:destination="@id/chatWindowFragment" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.afonsofrancof.connectdot.fragments.FeedFragment"
@@ -38,4 +48,21 @@
         android:id="@+id/postCreateFragment"
         android:name="com.afonsofrancof.connectdot.fragments.PostCreateFragment"
         android:label="PostCreateFragment" />
+    <fragment
+        android:id="@+id/chatAddListFragment"
+        android:name="com.afonsofrancof.connectdot.fragments.ChatAddListFragment"
+        android:label="ChatAddFragment" >
+        <action
+            android:id="@+id/action_chatAddListFragment_to_ChatPickerListFragment"
+            app:destination="@id/ChatPickerListFragment">
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/chatWindowFragment"
+        android:name="com.afonsofrancof.connectdot.fragments.ChatWindowFragment"
+        android:label="ChatWindowFragment" >
+        <argument
+            android:name="chatId"
+            app:argType="string" />
+    </fragment>
 </navigation>

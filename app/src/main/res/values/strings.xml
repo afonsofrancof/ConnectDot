@@ -12,4 +12,5 @@
     <string name="likes_label">likes</string>
     <string name="like_label">like</string>
     <string name="reposted">Reposted</string>
+    <string name="write_message_here">Write message here!</string>
 </resources>
