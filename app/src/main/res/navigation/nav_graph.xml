@@ -62,7 +62,7 @@
         android:name="com.afonsofrancof.connectdot.fragments.ChatWindowFragment"
         android:label="ChatWindowFragment" >
         <argument
-            android:name="chatId"
-            app:argType="string" />
+            android:name="chat"
+            app:argType="com.afonsofrancof.connectdot.objects.Chat" />
     </fragment>
 </navigation>

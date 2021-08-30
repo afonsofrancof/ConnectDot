@@ -18,6 +18,9 @@ class ChatPickerListAdapter(private val onClickListener: OnClickListener) : List
 
     override fun onBindViewHolder(holder: ChatPickerListAdapter.ChatListViewHolder, position: Int) {
         val chat = getItem(position)
+        holder.binding.root.setOnClickListener {
+            onClickListener.onClickChat(chat)
+        }
         holder.bind(chat)
     }
 
@@ -40,7 +43,7 @@ class ChatPickerListAdapter(private val onClickListener: OnClickListener) : List
     }
 
     interface OnClickListener{
-        fun onLongPressChat(chat : Chat)
+        fun onClickChat(chat : Chat)
     }
 
 }

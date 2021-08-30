@@ -36,5 +36,5 @@ data class Post(
     var chatId : String = "",
     var userList : MutableList<User> = mutableListOf(),
     var messages : MutableList<Message> = mutableListOf(),
-    var lastMessage : Message? = Message()
+    var lastMessage : Message = Message()
 ) : Parcelable

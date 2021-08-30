@@ -9,29 +9,23 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.afonsofrancof.connectdot.ChatAddListAdapter
 import com.afonsofrancof.connectdot.ChatWindowAdapter
-import com.afonsofrancof.connectdot.DividerItemDecoration
-import com.afonsofrancof.connectdot.databinding.FragmentChatAddListBinding
 import com.afonsofrancof.connectdot.databinding.FragmentChatWindowBinding
 import com.afonsofrancof.connectdot.objects.Chat
-import com.afonsofrancof.connectdot.objects.User
-import com.afonsofrancof.connectdot.viewModels.ChatAddListViewModel
+import com.afonsofrancof.connectdot.utils.getUser
 import com.afonsofrancof.connectdot.viewModels.ChatWindowViewModel
 
-class ChatWindowFragment : Fragment(),ChatWindowAdapter.OnClickListener {
+class ChatWindowFragment : Fragment(), ChatWindowAdapter.OnClickListener {
 
     private val viewModel: ChatWindowViewModel by lazy {
         ViewModelProvider(this).get(ChatWindowViewModel::class.java)
     }
 
-    val args : ChatWindowFragmentArgs by navArgs()
+    val args: ChatWindowFragmentArgs by navArgs()
 
     lateinit var binding: FragmentChatWindowBinding
 
@@ -40,29 +34,54 @@ class ChatWindowFragment : Fragment(),ChatWindowAdapter.OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        viewModel.getMessages(args.chatId)
+        viewModel.getMessages(args.chat.chatId)
         binding = FragmentChatWindowBinding.inflate(inflater)
 
         val adapter = ChatWindowAdapter(this)
-        binding.messageRecyclerView.addItemDecoration(DividerItemDecoration(30))
+        binding.chat = args.chat
+        binding.sendMessageButton.isEnabled = false
         binding.messageRecyclerView.adapter = adapter
-        binding.messageRecyclerView.layoutManager = GridLayoutManager(requireContext(),1,RecyclerView.VERTICAL,true)
+        binding.messageRecyclerView.layoutManager =
+            GridLayoutManager(requireContext(), 1, RecyclerView.VERTICAL, true)
         binding.messageRecyclerView.itemAnimator = Animator()
-//        binding.textInput.doOnTextChanged { text, _, _, _ ->
-//            viewModel.messageText = text.toString()
-//        } FALTA FAZER O BUTAO FICAR DISABLED
+        binding.textInput.doOnTextChanged { text, _, _, _ ->
+            binding.sendMessageButton.isEnabled = !text.isNullOrBlank()
+
+        }
         binding.sendMessageButton.setOnClickListener {
             viewModel.createMessage(binding.textInput.text.toString())
         }
         viewModel.chat.observe(viewLifecycleOwner, Observer {
-            adapter.submitList(it.messages)
-            if ((binding.messageRecyclerView.layoutManager as GridLayoutManager).findFirstCompletelyVisibleItemPosition() < 2) {
+            val messages = it.messages.sortedBy { msg -> msg.timeStamp.time }.reversed()
+            adapter.submitList(messages)
+            if ((binding.messageRecyclerView.layoutManager as GridLayoutManager).findFirstCompletelyVisibleItemPosition() < 3) {
+                binding.messageRecyclerView.smoothScrollToPosition(0)
+            }
+            if(messages.isNotEmpty())
+            if (messages.first().userId == getUser().userId) {
+                binding.textInput.text = null
                 binding.messageRecyclerView.smoothScrollToPosition(0)
             }
         })
+        binding.messageRecyclerView.addOnScrollListener(ScrollListener(binding))
+        binding.scrollToBottom.setOnClickListener {
+            binding.messageRecyclerView.smoothScrollToPosition(
+                0
+            )
+        }
         return binding.root
     }
 
+    class ScrollListener(val binding: FragmentChatWindowBinding) : RecyclerView.OnScrollListener() {
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            super.onScrolled(recyclerView, dx, dy)
+            if ((binding.messageRecyclerView.layoutManager as GridLayoutManager).findFirstCompletelyVisibleItemPosition() > 0) {
+                binding.scrollToBottom.visibility = View.VISIBLE
+            } else {
+                binding.scrollToBottom.visibility = View.GONE
+            }
+        }
+    }
 
     class Animator() : DefaultItemAnimator() {
         override fun animateAdd(holder: RecyclerView.ViewHolder?): Boolean {
@@ -73,6 +92,6 @@ class ChatWindowFragment : Fragment(),ChatWindowAdapter.OnClickListener {
     }
 
     override fun onLongPressChat(chat: Chat) {
-        Toast.makeText(requireContext(),"Not Yet Implemented",Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), "Not Yet Implemented", Toast.LENGTH_SHORT).show()
     }
 }
