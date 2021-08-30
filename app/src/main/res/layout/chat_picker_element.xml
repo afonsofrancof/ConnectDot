@@ -46,7 +46,7 @@
             android:id="@+id/contact_last_message"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:setLastMessageChat="@{chat.lastMessage}"
+            app:setLastMessageChat="@{chat}"
             tools:text="this is the last message you had with Afonso Franco"
             android:ellipsize="end"
             app:layout_constraintTop_toBottomOf="@id/contact_name"

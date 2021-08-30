@@ -26,6 +26,7 @@ class ChatWindowAdapter(private val onClickListener: OnClickListener) :
         val message = getItem(position)
         if (holder is OutgoingViewHolder) holder.bind(message)
         else if (holder is IncomingViewHolder) holder.bind(message)
+
     }
 
     companion object DiffCallback : DiffUtil.ItemCallback<Message>() {
@@ -49,6 +50,7 @@ class ChatWindowAdapter(private val onClickListener: OnClickListener) :
         fun bind(message: Message) {
             binding.message = message
             binding.executePendingBindings()
+
         }
     }
 

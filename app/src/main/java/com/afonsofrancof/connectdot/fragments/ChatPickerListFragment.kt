@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
@@ -67,8 +69,8 @@ class ChatPickerListFragment : Fragment(), ChatPickerListAdapter.OnClickListener
 
     }
 
-    override fun onLongPressChat(chat: Chat) {
-        TODO("Not yet implemented")
+    override fun onClickChat(chat: Chat) {
+        findNavController().navigate(ChatPickerListFragmentDirections.actionChatPickerListFragmentToChatWindowFragment(chat))
     }
 
     fun createChat(){

@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import com.afonsofrancof.connectdot.R
+import com.afonsofrancof.connectdot.objects.Chat
 import com.afonsofrancof.connectdot.objects.Message
 import com.afonsofrancof.connectdot.objects.Post
 import com.afonsofrancof.connectdot.objects.User
@@ -79,7 +80,7 @@ fun ImageButton.deleteButton(userId : String){
 
 @BindingAdapter("setProfilePictureChat")
 fun ImageView.setProfilePictureChat(userList : List<User>){
-    val url = userList.filter { it.userId != getUser().userId }.first().pfpUrl
+    val url = userList?.filter { it.userId != getUser().userId }.first().pfpUrl
     Glide.with(this).load(url).placeholder(R.drawable.ic_avatar_placeholder).error(R.drawable.ic_avatar_placeholder).into(this)
 }
 
@@ -90,6 +91,7 @@ fun TextView.setUsernameChat(userList: List<User>){
 }
 
 @BindingAdapter("setLastMessageChat")
-fun TextView.setUsernameChat(lastMessage : Message){
-    this.text = lastMessage.text
+fun TextView.setLastMessageChat(chat : Chat){
+    val name = chat.userList.find { it.userId == chat.lastMessage.userId}?.name
+    this.text = name + ": " + chat.lastMessage.text
 }
