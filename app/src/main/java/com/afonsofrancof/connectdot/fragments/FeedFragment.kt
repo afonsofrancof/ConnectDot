@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -15,9 +16,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.afonsofrancof.connectdot.DividerItemDecoration
-import com.afonsofrancof.connectdot.FeedAdapter
-import com.afonsofrancof.connectdot.MainActivity
+import com.afonsofrancof.connectdot.*
 import com.afonsofrancof.connectdot.databinding.FragmentFeedBinding
 import com.afonsofrancof.connectdot.objects.Post
 import com.afonsofrancof.connectdot.objects.User
@@ -83,7 +82,10 @@ class FeedFragment : Fragment(), FeedAdapter.OnClickListener {
     }
 
     override fun onClickImage(post: Post) {
-        TODO("Not yet implemented")
+        val intent = Intent(requireContext(),ZoomableImageActivity::class.java)
+        intent.putExtra("url",post.imgUrl)
+        (activity as MainActivity).startActivity(intent)
+
     }
 
     override fun onClickDelete(post: Post) {

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black">
+
+    <ImageView
+        android:id="@+id/zoomable_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <tag android:id="@+id/zoomable" android:value="ZoomableViewTag"/>
+    </ImageView>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/close_image_button"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/dark_teal"
+        android:src="@drawable/delete_post_icon"
+        app:shapeAppearanceOverlay="@style/rounded_image" />
+</RelativeLayout>

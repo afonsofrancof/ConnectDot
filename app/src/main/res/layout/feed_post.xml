@@ -77,7 +77,8 @@
                     app:layout_constraintBottom_toBottomOf="@id/time_ago"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/time_ago"
-                    app:tint="@color/gray" />
+                    app:tint="@color/gray"
+                    />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -88,7 +89,9 @@
                 android:layout_marginTop="14dp"
                 android:scaleType="centerCrop"
                 app:setImage="@{post.imgUrl}"
-                tools:src="@tools:sample/avatars" />
+                tools:src="@tools:sample/avatars">
+                <tag android:id="@+id/zoomable" android:value="ZoomableViewTag"/>
+            </ImageView>
 
             <TextView
                 android:layout_width="match_parent"
