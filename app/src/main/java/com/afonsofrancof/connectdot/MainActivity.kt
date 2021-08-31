@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.MotionEvent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
@@ -13,6 +14,7 @@ import androidx.navigation.ui.NavigationUI
 import com.afonsofrancof.connectdot.databinding.ActivityMainBinding
 import com.afonsofrancof.connectdot.objects.Chat
 import com.afonsofrancof.connectdot.utils.getUser
+import com.aghajari.zoomhelper.ZoomHelper
 import com.google.firebase.auth.FirebaseAuth
 
 
@@ -46,6 +48,14 @@ class MainActivity : AppCompatActivity() {
         }
 
 
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        val zoomHelper = ZoomHelper.getInstance()
+        zoomHelper.minScale = 1f
+        zoomHelper.maxScale = 10f
+        zoomHelper.dismissDuration = 200
+        return zoomHelper.dispatchTouchEvent(ev!!,this) || super.dispatchTouchEvent(ev)
     }
 
 //    override fun onCreateOptionsMenu(menu: Menu?): Boolean {

@@ -13,4 +13,7 @@
     <string name="like_label">like</string>
     <string name="reposted">Reposted</string>
     <string name="write_message_here">Write message here!</string>
+    <string name="title_activity_zoomable_image">ZoomableImageActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>

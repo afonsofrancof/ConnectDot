@@ -10,6 +10,7 @@ import com.afonsofrancof.connectdot.objects.User
 import com.afonsofrancof.connectdot.objects.Post
 
 
+
 class FeedAdapter(private val onClickListener: OnClickListener) : ListAdapter<Post, FeedAdapter.FeedItemViewHolder>(DiffCallback){
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -40,6 +41,8 @@ class FeedAdapter(private val onClickListener: OnClickListener) : ListAdapter<Po
         }
         holder.bind(post)
     }
+
+
 
     companion object DiffCallback : DiffUtil.ItemCallback<Post>(){
         override fun areItemsTheSame(oldItem: Post, newItem: Post): Boolean {
