@@ -2,6 +2,7 @@ package com.afonsofrancof.connectdot.viewModels
 
 import android.util.Log
 import android.widget.Toast
+import androidx.annotation.Nullable
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.afonsofrancof.connectdot.objects.Chat
@@ -21,6 +22,9 @@ class ChatWindowViewModel : ViewModel() {
 
     val database =
         Firebase.database("https://connectdot-a66d2-default-rtdb.europe-west1.firebasedatabase.app")
+
+
+    var imgUri : String? = null
 
     fun getMessages(chatId: String) {
         val myRef = database.reference.child("chats").child(chatId)
@@ -43,10 +47,12 @@ class ChatWindowViewModel : ViewModel() {
         newMessage.userId = getUser().userId
         newMessage.text = text.trim { it == ' ' }
         newMessage.messageId = getUser().userId + Calendar.getInstance().timeInMillis
-        newMessage.photoUrl = null
+        newMessage.photoUrl = imgUri
         newChat.lastMessage = newMessage
         newChat.messages.add(newMessage)
         database.reference.child("chats").child(chat.value!!.chatId).setValue(newChat)
     }
+
+
 
 }

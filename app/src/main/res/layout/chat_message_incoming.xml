@@ -9,9 +9,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginEnd="64dp">
+    android:paddingBottom="6dp">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -20,9 +20,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:orientation="vertical"
-        android:paddingStart="12dp"
+        android:layout_marginTop="8dp"
+        android:paddingStart="19dp"
         android:paddingTop="4dp"
-        android:paddingEnd="5dp"
         android:paddingBottom="10dp"
         >
 
@@ -30,9 +30,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
-            tools:src="@tools:sample/backgrounds/scenic"
-            app:shapeAppearance="@style/rounded_corners_image"
+            android:minWidth="50dp"
+            android:maxWidth="280dp"
             android:scaleType="centerCrop"
+            app:shapeAppearance="@style/rounded_corners_image"
+            tools:src="@tools:sample/backgrounds/scenic"
             app:setImage="@{message.photoUrl}"
             />
 
@@ -42,9 +44,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:textColor="@color/gray"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:paddingEnd="4dp"
+            android:textSize="18sp"
             android:text="@{message.text}"
+            android:maxWidth="280dp"
             tools:text="Hey how are you , I just wanted to say that I forgot about your birthday party" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

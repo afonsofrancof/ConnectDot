@@ -1,5 +1,7 @@
 package com.afonsofrancof.connectdot.fragments
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,10 +16,17 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.afonsofrancof.connectdot.ChatWindowAdapter
+import com.afonsofrancof.connectdot.DividerItemDecoration
+import com.afonsofrancof.connectdot.R
 import com.afonsofrancof.connectdot.databinding.FragmentChatWindowBinding
 import com.afonsofrancof.connectdot.objects.Chat
 import com.afonsofrancof.connectdot.utils.getUser
 import com.afonsofrancof.connectdot.viewModels.ChatWindowViewModel
+import com.bumptech.glide.Glide
+import pl.aprilapps.easyphotopicker.DefaultCallback
+import pl.aprilapps.easyphotopicker.EasyImage
+import pl.aprilapps.easyphotopicker.MediaFile
+import pl.aprilapps.easyphotopicker.MediaSource
 
 class ChatWindowFragment : Fragment(), ChatWindowAdapter.OnClickListener {
 
@@ -26,6 +35,8 @@ class ChatWindowFragment : Fragment(), ChatWindowAdapter.OnClickListener {
     }
 
     val args: ChatWindowFragmentArgs by navArgs()
+
+    lateinit var easyImage : EasyImage
 
     lateinit var binding: FragmentChatWindowBinding
 
@@ -49,12 +60,20 @@ class ChatWindowFragment : Fragment(), ChatWindowAdapter.OnClickListener {
 
         }
         binding.sendMessageButton.setOnClickListener {
+            binding.previewImage.visibility = View.GONE
+            binding.deletePreviewImage.visibility = View.GONE
             viewModel.createMessage(binding.textInput.text.toString())
+            viewModel.imgUri = null
+        }
+        binding.deletePreviewImage.setOnClickListener {
+            binding.previewImage.visibility = View.GONE
+            binding.deletePreviewImage.visibility = View.GONE
+            viewModel.imgUri = null
         }
         viewModel.chat.observe(viewLifecycleOwner, Observer {
             val messages = it.messages.sortedBy { msg -> msg.timeStamp.time }.reversed()
             adapter.submitList(messages)
-            if ((binding.messageRecyclerView.layoutManager as GridLayoutManager).findFirstCompletelyVisibleItemPosition() < 3) {
+            if ((binding.messageRecyclerView.layoutManager as GridLayoutManager).findFirstVisibleItemPosition() < 3) {
                 binding.messageRecyclerView.smoothScrollToPosition(0)
             }
             if(messages.isNotEmpty())
@@ -63,22 +82,28 @@ class ChatWindowFragment : Fragment(), ChatWindowAdapter.OnClickListener {
                 binding.messageRecyclerView.smoothScrollToPosition(0)
             }
         })
-        binding.messageRecyclerView.addOnScrollListener(ScrollListener(binding))
+        binding.messageRecyclerView.addOnScrollListener(ScrollListener(binding.scrollToBottom))
         binding.scrollToBottom.setOnClickListener {
             binding.messageRecyclerView.smoothScrollToPosition(
                 0
             )
         }
+        easyImage = EasyImage.Builder(requireContext())
+            .allowMultiple(false)
+            .build()
+        binding.addImageButton.setOnClickListener {
+            easyImage.openCameraForImage(this)
+        }
         return binding.root
     }
 
-    class ScrollListener(val binding: FragmentChatWindowBinding) : RecyclerView.OnScrollListener() {
+    class ScrollListener(val button : View) : RecyclerView.OnScrollListener() {
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
-            if ((binding.messageRecyclerView.layoutManager as GridLayoutManager).findFirstCompletelyVisibleItemPosition() > 0) {
-                binding.scrollToBottom.visibility = View.VISIBLE
+            if ((recyclerView.layoutManager as GridLayoutManager).findFirstVisibleItemPosition() > 0) {
+                button.visibility = View.VISIBLE
             } else {
-                binding.scrollToBottom.visibility = View.GONE
+                button.visibility = View.GONE
             }
         }
     }
@@ -94,4 +119,33 @@ class ChatWindowFragment : Fragment(), ChatWindowAdapter.OnClickListener {
     override fun onLongPressChat(chat: Chat) {
         Toast.makeText(requireContext(), "Not Yet Implemented", Toast.LENGTH_SHORT).show()
     }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        easyImage.handleActivityResult(
+            requestCode,
+            resultCode,
+            data,
+            activity as Activity,
+            object : DefaultCallback() {
+                override fun onMediaFilesPicked(imageFiles: Array<MediaFile>, source: MediaSource) {
+                   viewModel.imgUri = imageFiles.first().file.path.toString()
+                    binding.previewImage.visibility = View.VISIBLE
+                    binding.deletePreviewImage.visibility = View.VISIBLE
+                    Glide.with(requireContext()).load(viewModel.imgUri).placeholder(R.drawable.ic__image_placeholder).error(R.drawable.ic_error_image).into(binding.previewImage)
+
+                }
+
+                override fun onImagePickerError(error: Throwable, source: MediaSource) {
+                    //Some error handling
+                    error.printStackTrace()
+                }
+
+                override fun onCanceled(source: MediaSource) {
+                    //Not necessary to remove any files manually anymore
+                }
+            })
+    }
 }
+
