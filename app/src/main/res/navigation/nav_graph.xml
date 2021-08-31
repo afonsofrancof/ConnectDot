@@ -23,8 +23,8 @@
         android:label="ChatPickerListFragment">
         <argument
             android:name="user"
-            app:argType="com.afonsofrancof.connectdot.objects.User"
             android:defaultValue="@null"
+            app:argType="com.afonsofrancof.connectdot.objects.User"
             app:nullable="true" />
         <action
             android:id="@+id/action_ChatPickerListFragment_to_chatWindowFragment"

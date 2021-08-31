@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.afonsofrancof.connectdot.objects.Chat
+import com.afonsofrancof.connectdot.objects.Message
 import com.afonsofrancof.connectdot.objects.User
 import com.afonsofrancof.connectdot.utils.getUser
 import com.google.firebase.database.DataSnapshot
@@ -28,7 +29,7 @@ class ChatPickerListViewModel : ViewModel() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 chatList.value =
                     dataSnapshot.children.map { requireNotNull(it.getValue(Chat::class.java)) }
-                        .sortedByDescending { it.lastMessage?.timeStamp?.time }.filter {
+                        .sortedByDescending { it.lastMessage.timeStamp.time }.filter {
                             it.userList.contains(
                                 getUser()
                             )
@@ -54,6 +55,9 @@ class ChatPickerListViewModel : ViewModel() {
         chat.userList.add(getUser())
         val chatId = getUser().userId + Calendar.getInstance().timeInMillis
         chat.chatId = chatId
+        chat.lastMessage = Message()
+        chat.lastMessage.text = ""
+        chat.lastMessage.userId = ""
         database.reference.child("chats").child(chatId).setValue(chat)
         return false
     }

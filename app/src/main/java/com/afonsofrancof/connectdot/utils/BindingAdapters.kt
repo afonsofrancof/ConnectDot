@@ -18,7 +18,7 @@ import java.util.*
 @BindingAdapter("setImage")
 fun ImageView.setImage(url: String?) {
     this.isVisible = url != null
-    Glide.with(this).load(url).placeholder(R.drawable.ic__image_placeholder).error(R.drawable.ic_error_image) .into(this)
+    Glide.with(this).load(url).placeholder(R.drawable.ic__image_placeholder).error(R.drawable.ic_error_image).into(this)
 }
 
 @BindingAdapter("setProfilePicture")
@@ -78,6 +78,7 @@ fun ImageButton.deleteButton(userId : String){
 
 // CHAT BINDING ADAPTERS
 
+
 @BindingAdapter("setProfilePictureChat")
 fun ImageView.setProfilePictureChat(userList : List<User>){
     val url = userList?.filter { it.userId != getUser().userId }.first().pfpUrl
@@ -93,5 +94,6 @@ fun TextView.setUsernameChat(userList: List<User>){
 @BindingAdapter("setLastMessageChat")
 fun TextView.setLastMessageChat(chat : Chat){
     val name = chat.userList.find { it.userId == chat.lastMessage.userId}?.name
-    this.text = name + ": " + chat.lastMessage.text
+    if (name!=null) this.text = name + ": " + chat.lastMessage.text
+    else this.text = ""
 }
