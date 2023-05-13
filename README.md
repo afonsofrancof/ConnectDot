@@ -7,4 +7,4 @@ A Social Media App with Firebase as a final project to my Android development in
 - Private Messages
   - Allows users to talk to each other in a 'DM' style. Supports text and pictures. 
 - Profile
-  - Allow the user tho change their personal information and see all their posts.
+  - Allow the user to change their personal information and see all their posts.
