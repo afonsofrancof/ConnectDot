@@ -8,3 +8,8 @@ A Social Media App with Firebase as a final project to my Android development in
   - Allows users to talk to each other in a 'DM' style. Supports text and pictures. 
 - Profile
   - Allow the user to change their personal information and see all their posts.
+
+## Screenshots
+
+<img src="https://i.imgur.com/QYkj2QP.jpg" width=300>
+<img src="https://i.imgur.com/UUaukru.jpg" width=300>
